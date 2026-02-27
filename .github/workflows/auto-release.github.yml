@@ -1,0 +1,117 @@
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., 1.0.0)'
+        required: true
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.x'
+      
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: set working directory
+        run: cd ui
+      
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: Build frontend
+        run: pnpm build
+      
+      - name: Upload frontend artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ui-build
+          path: ui/dist/
+      
+  build-backend:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install .
+      
+      - name: Build backend
+        run: nuitka --standalone --windows-disable-console --output-dir=dist/ main.py
+      
+      - name: Upload backend artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: backend-build
+          path: dist/main.dist/
+      
+  create-package:
+    needs: [build-frontend, build-backend]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download frontend artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: ui-build
+          path: release/resources/ui/
+
+      - name: Download backend artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: backend-build
+          path: release/
+
+      - name: Create package
+        run: |
+          mkdir release
+          zip -r release.zip release/
+
+      - name: rename package
+        run: |
+          VERSION=${{ github.event.inputs.version }}
+          if [[ -n "$VERSION" ]]; then
+            version="$VERSION"
+          else
+            version=$(echo "${GITHUB_REF#refs/tags/}" | sed 's/^v//')
+          fi
+          mv release.zip "manager-v${version}.zip"
+          echo "version=${version}" >> $GITHUB_OUTPUT
+  
+  publish-release:
+    needs: create-package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: manager-release
+          path: manager-v*.zip
+      
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: manager-release
+          path: manager-v${{ steps.create-package.outputs.version }}.zip
+        
+
