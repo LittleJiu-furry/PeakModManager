@@ -1,3 +1,4 @@
+name: Auto Release
 
 on:
   workflow_dispatch:
@@ -22,6 +23,8 @@ jobs:
       
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
+        with:
+          version: 8
 
       - name: set working directory
         run: cd ui
@@ -43,15 +46,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
+      - name: setup uv
+        uses: astral-sh/setup-uv@v7
         with:
-          python-version: '3.12'
+          enable-cache: true
+          version: latest
+      
+      - name: Install Python
+        run: uv python install 3.12
       
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install .
+        run: uv sync --all-extras --dev
+      
+      - name: Install Nuitka
+        run: uv pip install nuitka
       
       - name: Build backend
         run: nuitka --standalone --windows-disable-console --output-dir=dist/ main.py
