@@ -62,7 +62,7 @@ jobs:
         run: uv pip install nuitka
       
       - name: Build backend
-        run: uv run -m nuitka --standalone --windows-disable-console --output-dir=dist/ main.py
+        run: uv run -m nuitka --standalone --windows-disable-console --assume-yes-for-downloads --output-dir=dist/ main.py
       
       - name: Upload backend artifact
         uses: actions/upload-artifact@v7
