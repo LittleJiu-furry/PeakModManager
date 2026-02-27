@@ -40,6 +40,7 @@ jobs:
         with:
           name: ui-build
           path: ui/dist/
+          retention-days: 1
       
   build-backend:
     runs-on: windows-latest
@@ -69,6 +70,7 @@ jobs:
         with:
           name: backend-build
           path: dist/main.dist/
+          retention-days: 1
       
   create-package:
     needs: [build-frontend, build-backend]
@@ -89,9 +91,7 @@ jobs:
           path: release/
 
       - name: Create package
-        run: |
-          cd release
-          zip -r release.zip release/
+        run: zip -r release.zip release/
 
       - name: rename package
         run: |
