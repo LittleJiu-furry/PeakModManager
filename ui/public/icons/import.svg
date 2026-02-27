@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 巨大的导入箭头 (占据视觉中心，强调导入动作) -->
+    <line x1="12" y1="2" x2="12" y2="14"></line>
+    <polyline points="7 9 12 14 17 9"></polyline>
+    
+    <!-- 配置文件轮廓 (作为接收托盘，顶部敞开迎接箭头) -->
+    <path d="M10 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9"></path>
+    
+    <!-- 文件底部的文本线条 -->
+    <line x1="8" y1="18" x2="16" y2="18"></line>
+    
+    <!-- 右上角的齿轮 (表明这是配置文件) -->
+    <circle cx="19" cy="5" r="2"></circle>
+    <path d="M19 1.5v1.5"></path>
+    <path d="M19 7v1.5"></path>
+    <path d="M15.5 5h1.5"></path>
+    <path d="M21 5h1.5"></path>
+    <path d="M16.5 2.5l1 1"></path>
+    <path d="M21.5 2.5l-1 1"></path>
+    <path d="M16.5 7.5l1 -1"></path>
+    <path d="M21.5 7.5l-1 -1"></path>
+</svg>

@@ -1,0 +1,8 @@
+[project]
+name = "peakmodmanager"
+version = "0.1.0"
+description = "A Mod Manager for the game PEAK."
+requires-python = ">=3.12"
+dependencies = [
+    "pywebview>=6.1",
+]

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 文件主体轮廓 (避开右上角给齿轮留出空间) -->
+    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10"></path>
+    
+    <!-- 文件内部的文本线条 -->
+    <path d="M8 14h8"></path>
+    <path d="M8 18h8"></path>
+    
+    <!-- 齿轮中心圆 -->
+    <circle cx="18" cy="5" r="2.5"></circle>
+    
+    <!-- 齿轮的8个齿 -->
+    <path d="M18 1.5v1"></path>
+    <path d="M18 7.5v1"></path>
+    <path d="M14.5 5h1"></path>
+    <path d="M20.5 5h1"></path>
+    <path d="M15.5 2.5l.75.75"></path>
+    <path d="M20.5 2.5l-.75.75"></path>
+    <path d="M15.5 7.5l.75-.75"></path>
+    <path d="M20.5 7.5l-.75-.75"></path>
+</svg>

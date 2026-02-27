@@ -1,0 +1,34 @@
+/* 按照蓝色为主色调，根据变量名生成颜色 */
+* {
+    --appBackgroundColor: #d1e9fd;
+    --appFontColor: #000;
+
+    --asideBackgroundColor: #fff;
+    --asideFontColor: #000;
+    --asideActiveBackgroundColor: #fff;
+    --asideActiveFontColor: #1e90ff;
+    --asideHoverBackgroundColor: #a2cdf09e;
+
+    --headBackgroundColor: #1e90ff;
+    --headFontColor: #fff;
+    --headElementHoverColor: #5bacee;
+    --headElementActiveBackgroundColor: #fff;
+    --headElementActiveColor: #1e90ff;
+
+    --launchBtnsHoverBackgroundColor: #5bacee1c;
+    --launchBtnsHoverFontColor: #1e90ff;
+
+    --loadingBoxBackgroundColor: #fff;
+    --loadingBoxFontColor: #1e90ff;
+
+    --cardBackgroundColor: #fff;
+    --cardHoverBorderColor: #1e90ff;
+    --cardFontColor: #000;
+    --cardElementHoverBackgroundColor: #5bacee1c;
+    --cardElementHoverFontColor: #1e90ff;
+
+    --successColor: #52c41a;
+    --errorColor: #ff4d4f;
+    --infoColor: #1890ff;
+
+}
