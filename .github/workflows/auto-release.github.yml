@@ -90,8 +90,17 @@ jobs:
           name: backend-build
           path: release/
 
-      - name: Create package
-        run: zip -r release.zip release/
+      - name: Rename and create package
+        run: |
+          VERSION=${{ github.event.inputs.version }}
+          if [[ -n "$VERSION" ]]; then
+            version="$VERSION"
+          else
+            version=$(echo "${GITHUB_REF#refs/tags/}" | sed 's/^v//')
+          fi
+          mv release "manager-v${version}"
+          zip -r release.zip "manager-v${version}/"
+
 
       - name: rename package
         run: |
@@ -114,7 +123,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: manager-release
-          path: manager-v*.zip
+          path: manager-v${{ steps.create-package.outputs.version }}.zip
       
       - name: upload artifact
         uses: actions/upload-artifact@v7
