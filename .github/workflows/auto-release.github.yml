@@ -90,7 +90,7 @@ jobs:
 
       - name: Create package
         run: |
-          mkdir release
+          cd release
           zip -r release.zip release/
 
       - name: rename package
